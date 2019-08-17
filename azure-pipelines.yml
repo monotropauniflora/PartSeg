@@ -3,6 +3,7 @@ trigger:
     include:
     - master
     - develop
+    - cibuildwheel_problem
   tags:
     include:
     - v*
@@ -125,7 +126,7 @@ stages:
       - job: macos_wheel
         pool: {vmImage: 'macOS-10.13'}
         variables:
-          CIBW_BUILD: cp36-*10_9_intel cp37-*10_9_intel
+          CIBW_BUILD: cp36-* cp37-*
           CIBW_TEST_REQUIRES: pytest pytest-qt
           CIBW_TEST_COMMAND: pytest {project}/package/tests
         steps:
@@ -135,7 +136,7 @@ stages:
               artifact: TestData
               path: $(Build.SourcesDirectory)/test_data
           - bash: |
-              python -m pip install git+https://github.com/Czaki/cibuildwheel
+              python -m pip install cibuildwheel
               python -m cibuildwheel --output-dir wheelhouse
           - task: PublishBuildArtifacts@1
             inputs:
