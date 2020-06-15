@@ -33,7 +33,7 @@ class TestMaskMainWindow:
     # @pytest.mark.skipif(platform.system() == "Linux", reason="vispy problem")
     # @pytest.mark.skipif(qtpy.API_NAME == "PySide2", reason="PySide2 problem")
     @pytest.mark.skipif(napari_warnings, reason="warnings fail test")
-    def test_opening(self, qtbot, tmpdir):
+    def test_opening(self, qtbot2, tmpdir):
         main_window = MaskMainWindow(tmpdir)
         # qtbot2.addWidget(main_window)
         main_window.close()
