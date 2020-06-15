@@ -8,6 +8,11 @@ import qtpy
 from PartSeg.segmentation_analysis.main_window import MainWindow as AnalysisMainWindow
 from PartSeg.segmentation_mask.main_window import MainWindow as MaskMainWindow
 
+try:
+    from PyQt5.sip import delete
+except ImportError:
+    from shiboken2 import delete
+
 napari_warnings = napari.__version__ == "0.3.4" and platform.system() == "Linux" and sys.version_info.minor == 8
 
 
@@ -28,8 +33,8 @@ class TestMaskMainWindow:
     # @pytest.mark.skipif(platform.system() == "Linux", reason="vispy problem")
     # @pytest.mark.skipif(qtpy.API_NAME == "PySide2", reason="PySide2 problem")
     @pytest.mark.skipif(napari_warnings, reason="warnings fail test")
-    def test_opening(self, qtbot2, tmpdir):
+    def test_opening(self, qtbot, tmpdir):
         main_window = MaskMainWindow(tmpdir)
         # qtbot2.addWidget(main_window)
         main_window.close()
-        del main_window
+        delete(main_window)
