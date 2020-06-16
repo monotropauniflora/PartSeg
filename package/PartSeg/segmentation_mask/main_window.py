@@ -964,6 +964,7 @@ class MainWindow(BaseMainWindow):
         del self.main_menu.segmentation_dialog
         del self.options_panel.algorithm_options.show_parameters_widget
         self.settings.dump()
+        super().closeEvent(e)
 
     def read_drop(self, paths):
         self._read_drop(paths, io_functions)
