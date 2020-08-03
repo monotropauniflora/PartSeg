@@ -29,21 +29,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
-        python_version: ['3.6', '3.7', '3.8']
-        include:
-          - python_version: '3.6'
-            toxenv: 'py36-PyQt5,py36-PySide2'
-          - python_version: '3.7'
-            toxenv: 'py37-PyQt5,py37-PySide2'
-          - python_version: '3.8'
-            toxenv: 'py38-PyQt5,py38-PySide2'
+        os: [windows-latest, ubuntu-latest]
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-python@v1
-      name: Install Python ${{ matrix.python_version }}
+      name: Install Python 3.7
       with:
-        python-version: ${{ matrix.python_version }}
+        python-version: 3.7
 
     - name: Install ubuntu libraries
       if: startsWith(matrix.os, 'ubuntu')
@@ -61,4 +53,4 @@ jobs:
         python -m pip install -r requirements/requirements_dev.txt
 
     - name: Test PartSeg
-      run: tox -e ${{ matrix.toxenv }}
+      run: tox -e py37-PyQt5,py37-PySide2

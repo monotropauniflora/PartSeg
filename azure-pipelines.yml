@@ -5,6 +5,7 @@ trigger:
     exclude:
     - dependabot/*
     - release/*
+    - test_ci_fail
   tags:
     include:
     - v*
